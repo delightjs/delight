@@ -1,7 +1,8 @@
 import { Delight } from './delight';
+import { Application } from './application';
 
 describe('Delight', () => {
   it('should be singleton', () => {
-    expect(Delight).toEqual({});
+    expectTypeOf(Delight).toHaveProperty('app').toEqualTypeOf<Application>();
   });
 });
