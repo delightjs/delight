@@ -32,7 +32,7 @@
     "sharedGlobals": []
   },
   "workspaceLayout": {
-    "appsDir": "packages",
+    "appsDir": "examples",
     "libsDir": "packages"
   }
 }
