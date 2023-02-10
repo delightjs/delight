@@ -5,9 +5,12 @@
   "scripts": {},
   "private": true,
   "dependencies": {
+    "core-js": "^3.6.5",
     "inversify": "^6.0.1",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.8.0"
+    "regenerator-runtime": "0.13.7",
+    "rxjs": "^7.8.0",
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
     "@nrwl/esbuild": "15.6.3",
