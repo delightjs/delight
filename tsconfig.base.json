@@ -15,8 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@delightjs/stage": ["packages/stage/src/index.ts"],
-      "@delightjs/core": ["packages/core/src/index.ts"]
+      "@delightjs/core": ["packages/core/src/index.ts"],
+      "@delightjs/stage": ["packages/stage/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
