@@ -1,25 +1,23 @@
-import { Application, IApplicationOptions } from 'pixi.js';
+import { Application } from 'pixi.js';
 import { extension, Extension, ExtensionConfigureFn } from '@delightjs/core';
-import { Scene } from './scene';
-
-export type StageConfig = {
-  app: IApplicationOptions;
-  entry: Scene;
-};
+import { Config } from './config';
 
 @extension('stage')
 export class StageExtension implements Extension {
-  public readonly config: Partial<StageConfig> = {};
+  public readonly config: Config = new Config();
   private app?: Application;
 
-  configure<StageConfig>(configureFor: ExtensionConfigureFn<StageConfig>) {
-    configureFor(this.config as StageConfig);
+  configure<Config>(configureFor: ExtensionConfigureFn<Config>) {
+    configureFor(this.config as Config);
   }
 
   async load() {
     this.app = new Application(this.config.app);
-    if (this.config.entry) {
-      this.app.stage.addChild(this.config.entry);
+    if (this.config.defaultScene) {
+      const scene = this.config.getScene(this.config.defaultScene);
+      if (scene) {
+        this.app.stage.addChild(await scene());
+      }
     }
   }
 }

@@ -1,5 +1,5 @@
 import Delight from '@delightjs/core';
-import { StageConfig } from '@delightjs/stage';
+import { Config as StageConfig } from '@delightjs/stage';
 
 import { Entry } from './scenes/Entry';
 
@@ -10,9 +10,9 @@ Delight.app.configureFor<StageConfig>('stage', (config) => {
     resizeTo: window,
     backgroundColor: '000',
   };
-  Entry().then((node) => {
-    config.entry = node;
 
-    Delight.app.start();
-  });
+  config.defaultScene = 'entry';
+  config.addScene('entry', Entry);
 });
+
+await Delight.app.start();
