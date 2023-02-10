@@ -1,14 +1,22 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { createElement, Scene, Sprite } from '@delightjs/stage'
+import { createElement, Scene, Sprite } from '@delightjs/stage';
 
-import * as PIXI from 'pixi.js'
+import * as PIXI from 'pixi.js';
+
+type SpriteProps = { x?: number; y?: number; seed: string };
+const SpriteWithImage = async (props: SpriteProps) => {
+  const texture = await PIXI.Texture.fromURL(
+    `https://picsum.photos/seed/${props.seed}/200`
+  );
+
+  return <Sprite texture={texture} x={props.x} y={props.y} />;
+};
 
 export const Entry = async () => {
-  const texture = await PIXI.Texture.fromURL('https://picsum.photos/200')
-
   return (
     <Scene>
-      <Sprite texture={texture} x={100} y={100} />
+      <SpriteWithImage x={100} y={100} seed="lower" />
+      <SpriteWithImage x={200} y={200} seed="higher" />
     </Scene>
-  )
-}
+  );
+};
