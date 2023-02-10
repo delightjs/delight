@@ -16,9 +16,7 @@ class SpecExtension implements Extension {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  load() {}
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  start() {}
+  async load() {}
 }
 
 describe('Extension', () => {

@@ -1,4 +1,3 @@
-import { Application } from 'pixi.js';
 import Delight from '@delightjs/core';
 import { StageConfig } from '@delightjs/stage';
 

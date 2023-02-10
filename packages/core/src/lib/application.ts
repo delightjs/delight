@@ -19,11 +19,13 @@ export class Application {
     for (const key in extensions) {
       const extension = extensions[key];
       this.extensions[key] = new extension();
-      this.extensions[key].load();
     }
   }
 
-  start() {
-    Object.values(this.extensions).forEach((extension) => extension.start());
+  async start() {
+    const extensions = Object.values(this.extensions).map((extension) =>
+      extension.load()
+    );
+    await Promise.all(extensions);
   }
 }

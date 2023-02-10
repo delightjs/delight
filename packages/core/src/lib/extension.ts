@@ -3,8 +3,7 @@ import { Map } from 'immutable';
 export type ExtensionConfigureFn<T> = (config: T) => void;
 export interface Extension {
   configure<T>(fn: ExtensionConfigureFn<T>): void;
-  load(): void;
-  start(): void;
+  load(): Promise<void>;
 }
 export type ExtensionCtor = new () => Extension;
 

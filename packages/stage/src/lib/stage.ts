@@ -16,10 +16,7 @@ export class StageExtension implements Extension {
     configureFor(this.config as StageConfig);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  load() {}
-
-  start() {
+  async load() {
     this.app = new Application(this.config.app);
     if (this.config.entry) {
       this.app.stage.addChild(this.config.entry);
