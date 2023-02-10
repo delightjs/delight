@@ -1,10 +1,11 @@
 import { Container } from 'pixi.js';
 
-type Constructor = new (...args: unknown[]) => Container;
+type Props = { [key: string]: unknown } | null;
+type Constructor = new (props?: Props) => Container;
 
 export function createElement(
   ctor: Constructor,
-  attrs: { [key: string]: string },
+  attrs: Props,
   ...children: Container[]
 ): Container {
   const element = new ctor(attrs);
