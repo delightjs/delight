@@ -16,7 +16,9 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "skipLibCheck": true,
-    "types": ["vite/client", "vitest"]
+    "types": ["vite/client", "vitest"],
+    "jsx": "react",
+    "jsxFactory": "createElement"
   },
   "include": ["src"],
   "references": [
