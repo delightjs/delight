@@ -8,7 +8,7 @@ export class StageExtension implements Extension {
   private app?: Application;
 
   configure<Config>(configureFor: ExtensionConfigureFn<Config>) {
-    configureFor(this.config as Config);
+    configureFor(this.config as unknown as Config);
   }
 
   async load() {
