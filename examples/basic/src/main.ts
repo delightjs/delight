@@ -12,7 +12,7 @@ Delight.app.configureFor<StageConfig>('stage', (config) => {
   };
 
   config.defaultScene = 'entry';
-  config.addScene('entry', Entry());
+  config.addScene('entry', Entry);
 });
 
 await Delight.app.start();

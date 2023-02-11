@@ -4,10 +4,9 @@ type Props = { [key: string]: unknown } | null;
 type Constructor = new (props?: Props) => Container;
 type Component = (props?: Props) => Container;
 
-function instantiateElement(
-  type: Constructor | Component,
-  props: Props
-): Container {
+export type Factory = Constructor | Component;
+
+function instantiateDisplayObject(type: Factory, props: Props): Container {
   let element: Container;
 
   if (type.prototype && type.prototype.constructor.name) {
@@ -21,8 +20,8 @@ function instantiateElement(
   return element;
 }
 
-function createDisplayObject(type: Constructor | Component, props: Props) {
-  const element = instantiateElement(type, props);
+export function createDisplayObject(type: Factory, props: Props) {
+  const element = instantiateDisplayObject(type, props);
 
   if (props && props['children']) {
     (props['children'] as Container[]).forEach((item) =>
