@@ -1,6 +1,6 @@
 import { Application } from 'pixi.js';
 import { extension, Extension, ExtensionConfigureFn } from '@delightjs/core';
-import { createDisplayObject } from '@delightjs/jsx-runtime';
+import { createElement, createContainer } from '@delightjs/jsx-runtime';
 import { Config } from './config';
 
 @extension('stage')
@@ -17,7 +17,8 @@ export class StageExtension implements Extension {
     if (this.config.defaultScene) {
       const scene = this.config.getScene(this.config.defaultScene);
       if (scene) {
-        this.app.stage.addChild(createDisplayObject(scene, {}));
+        const element = createElement(scene, {});
+        createContainer(this.app.stage, element);
       }
     }
   }

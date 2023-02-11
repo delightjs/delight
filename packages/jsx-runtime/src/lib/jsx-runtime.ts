@@ -1,39 +1,33 @@
 import { Container } from 'pixi.js';
 
-type Props = { [key: string]: unknown } | null;
-type Constructor = new (props?: Props) => Container;
-type Component = (props?: Props) => Container;
-
+export type Constructor = new (props?: object) => Container;
+export type Component = (config: Config) => Element;
 export type Factory = Constructor | Component;
 
-function instantiateDisplayObject(type: Factory, props: Props): Container {
-  let element: Container;
-
-  if (type.prototype && type.prototype.constructor.name) {
-    const ctor = type as Constructor;
-    element = new ctor(props);
-  } else {
-    const ctor = type as Component;
-    element = ctor(props);
-  }
-
-  return element;
-}
-
-export function createDisplayObject(type: Factory, props: Props) {
-  const element = instantiateDisplayObject(type, props);
-
-  if (props && props['children']) {
-    (props['children'] as Container[]).forEach((item) =>
-      element.addChild(item)
-    );
-  }
-
-  return element;
-}
-
-export {
-  createDisplayObject as jsx,
-  createDisplayObject as jsxs,
-  createDisplayObject as jsxDEV,
+export type Config = {
+  children?: Element[];
+} & object;
+export type Element = {
+  type: Constructor;
+  props: object;
+  children: Element[];
 };
+
+const isConstructor = (fn: Factory) =>
+  fn.prototype && fn.prototype.constructor.name;
+
+export function createElement(type: Factory, config: Config): Element {
+  if (!isConstructor(type)) {
+    return (type as Component)(config);
+  }
+
+  const { children, ...props } = config;
+
+  return {
+    type: type as Constructor,
+    props,
+    children: children || [],
+  };
+}
+
+export { createElement as jsx, createElement as jsxs, createElement as jsxDEV };
