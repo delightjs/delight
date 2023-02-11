@@ -1,6 +1,10 @@
 import { Application } from 'pixi.js';
 import { extension, Extension, ExtensionConfigureFn } from '@delightjs/core';
-import { createElement, createContainer } from '@delightjs/jsx-runtime';
+import {
+  createElement,
+  createContainer,
+  updateContainer,
+} from '@delightjs/jsx-runtime';
 import { Config } from './config';
 
 @extension('stage')
@@ -18,7 +22,16 @@ export class StageExtension implements Extension {
       const scene = this.config.getScene(this.config.defaultScene);
       if (scene) {
         const element = createElement(scene, {});
-        createContainer(this.app.stage, element);
+        let container = createContainer(this.app.stage, element);
+        this.app.ticker.add(() => {
+          if (this.app) {
+            container = updateContainer(
+              this.app.stage,
+              container,
+              createElement(scene, {})
+            );
+          }
+        });
       }
     }
   }

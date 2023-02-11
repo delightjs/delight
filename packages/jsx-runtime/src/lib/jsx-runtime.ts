@@ -3,13 +3,14 @@ import { Container } from 'pixi.js';
 export type Constructor = new (props?: object) => Container;
 export type Component = (config: Config) => Element;
 export type Factory = Constructor | Component;
+export type Props = { [key: string]: unknown };
 
 export type Config = {
   children?: Element[];
 } & object;
 export type Element = {
   type: Constructor;
-  props: object;
+  props: Props;
   children: Element[];
 };
 
@@ -25,7 +26,7 @@ export function createElement(type: Factory, config: Config): Element {
 
   return {
     type: type as Constructor,
-    props,
+    props: props as Props,
     children: children || [],
   };
 }

@@ -10,6 +10,10 @@ export class Sprite extends PIXI.Sprite {
   constructor(props: SpriteProps) {
     super(PIXI.Texture.EMPTY);
 
+    this.applyProps(props);
+  }
+
+  applyProps(props: SpriteProps) {
     props.texture.then((texture) => (this.texture = texture));
 
     this.x = props.x || 0;

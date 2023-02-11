@@ -13,9 +13,11 @@ const SpriteWithImage = (props: SpriteProps) => {
 };
 
 export const Entry = () => {
+  const x = Math.ceil(Math.sin(Date.now() / 1000) * 100);
+
   return (
     <Scene>
-      <SpriteWithImage x={100} y={100} seed="lower" />
+      <SpriteWithImage x={100 + x} y={100} seed="lower" />
       <SpriteWithImage x={200} y={200} seed="higher" />
     </Scene>
   );
