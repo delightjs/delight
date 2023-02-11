@@ -37,15 +37,24 @@ function patchNode(root: PropApplicable, node: Node, element: Element): Node {
     return createNode(root, element);
   }
 
-  if (node.children.length != element.children.length) return node;
-
   if (diffNode(node, element) && node.instance.applyProps) {
     node.instance.applyProps(element.props);
   }
 
-  const children = node.children.map((child, idx) =>
-    patchNode(node.instance, child, element.children[idx])
-  );
+  const children = element.children.map((newElement, idx) => {
+    const childNode = node.children[idx];
+    if (!childNode) {
+      return createNode(node.instance, newElement);
+    }
+    return patchNode(node.instance, childNode, newElement);
+  });
+
+  if (node.children.length > element.children.length) {
+    let idx = node.children.length - element.children.length;
+    for (; idx < node.children.length; idx++) {
+      node.children[idx].instance.removeFromParent();
+    }
+  }
 
   return {
     ...node,
