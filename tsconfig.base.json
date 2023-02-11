@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@delightjs/core": ["packages/core/src/index.ts"],
+      "@delightjs/jsx-runtime": ["packages/jsx-runtime/src/index.ts"],
       "@delightjs/stage": ["packages/stage/src/index.ts"]
     }
   },

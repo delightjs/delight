@@ -16,7 +16,7 @@ export class StageExtension implements Extension {
     if (this.config.defaultScene) {
       const scene = this.config.getScene(this.config.defaultScene);
       if (scene) {
-        this.app.stage.addChild(await scene());
+        this.app.stage.addChild(scene);
       }
     }
   }

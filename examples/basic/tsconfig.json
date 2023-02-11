@@ -17,8 +17,8 @@
     "noImplicitReturns": true,
     "skipLibCheck": true,
     "types": ["vite/client", "vitest"],
-    "jsx": "react",
-    "jsxFactory": "createElement"
+    "jsx": "react-jsx",
+    "jsxImportSource": "@delightjs"
   },
   "include": ["src"],
   "references": [

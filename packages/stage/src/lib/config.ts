@@ -1,19 +1,17 @@
 import { IApplicationOptions, Container } from 'pixi.js';
 import { Map } from 'immutable';
 
-type SceneData = () => Promise<Container>;
-
 export class Config {
   public app: IApplicationOptions = {};
   public defaultScene?: string;
 
-  private scenes: Map<string, SceneData> = Map<string, SceneData>();
+  private scenes: Map<string, Container> = Map<string, Container>();
 
-  addScene(name: string, scene: SceneData) {
+  addScene(name: string, scene: Container) {
     this.scenes = this.scenes.set(name, scene);
   }
 
-  getScene(name: string): SceneData | undefined {
+  getScene(name: string): Container | undefined {
     return this.scenes.get(name);
   }
 }
