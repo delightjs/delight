@@ -1,30 +1,25 @@
-import {
-  NormalGameNode,
-  HighOrderGameNode,
-  GameNode,
-  Props,
-  VirtualNode,
-  VirtualNodeConfig,
-} from './types';
-
-const isConstructor = (node: GameNode) =>
-  node.prototype && node.prototype.constructor.name;
+import { GameNode, Props, VirtualNode, VirtualNodeConfig } from './types';
 
 export function createVirtualNode(
   type: GameNode,
   config: VirtualNodeConfig
 ): VirtualNode {
-  if (isConstructor(type)) {
-    const { children, ...props } = config;
+  const { children, ...props } = config;
 
-    return {
-      type: type as NormalGameNode,
-      props: props as Props,
-      children: children || [],
-    };
+  const node = {
+    type,
+    props: props as Props,
+    children: [],
+  };
+
+  if (children) {
+    // @ts-expect-error: 2322 - isArray should verify all types
+    node.children = Array.isArray(children)
+      ? children
+      : [children as VirtualNode];
   }
 
-  return (type as HighOrderGameNode)(config);
+  return node;
 }
 
 export {

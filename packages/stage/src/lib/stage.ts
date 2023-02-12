@@ -3,8 +3,7 @@ import { extension, Extension, ExtensionConfigureFn } from '@delightjs/core';
 import {
   IGameObject,
   createVirtualNode,
-  createContainer,
-  updateContainer,
+  updateNode,
 } from '@delightjs/jsx-runtime';
 import { Config } from './config';
 
@@ -23,13 +22,18 @@ export class StageExtension implements Extension {
       const scene = this.config.getScene(this.config.defaultScene);
       if (scene) {
         const element = createVirtualNode(scene, {});
-        let container = createContainer(this.app.stage as IGameObject, element);
+        let currentNode = updateNode(
+          this.app.stage as IGameObject,
+          element,
+          null
+        );
         this.app.ticker.add(() => {
           if (this.app) {
-            container = updateContainer(
+            const newNode = createVirtualNode(scene, {});
+            currentNode = updateNode(
               this.app.stage as IGameObject,
-              container,
-              createVirtualNode(scene, {})
+              newNode,
+              currentNode
             );
           }
         });

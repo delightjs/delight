@@ -1,5 +1,5 @@
 import { IGameObject, VirtualNode } from './types';
-import { createContainer } from './container';
+import { updateNode } from './diff';
 
 class GameObject implements IGameObject {
   public parent?: GameObject = undefined;
@@ -28,8 +28,8 @@ describe('createContainer', () => {
       props: {},
       children: [],
     };
-    const node = createContainer(root, element);
-    expectTypeOf(node.instance).toMatchTypeOf<IGameObject>();
+    const node = updateNode(root, element, null);
+    expectTypeOf(node.instance as IGameObject).toMatchTypeOf<IGameObject>();
   });
 
   it('should have 2 children', async () => {
@@ -50,7 +50,7 @@ describe('createContainer', () => {
         },
       ],
     };
-    const node = createContainer(root, element);
+    const node = updateNode(root, element, null);
     expect(node.children).toHaveLength(2);
   });
 });

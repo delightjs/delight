@@ -10,9 +10,13 @@ export type NormalGameNode = new () => IGameObject;
 export type HighOrderGameNode = (config: VirtualNodeConfig) => VirtualNode;
 export type GameNode = NormalGameNode | HighOrderGameNode;
 
-export type VirtualNodeConfig = Props & { children?: VirtualNode[] };
+export type VirtualNodeConfig = Props & {
+  children?: VirtualNode | VirtualNode[];
+};
 export type VirtualNode = {
-  type: NormalGameNode;
+  type: GameNode;
   props: Props;
+  parent?: IGameObject;
+  instance?: IGameObject | { next(): VirtualNode };
   children: VirtualNode[];
 };
