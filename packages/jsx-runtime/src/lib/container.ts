@@ -7,17 +7,17 @@ type Node = {
   props: Props;
 };
 
-function diffNode(node: Node, element: VirtualNode): boolean {
+function diffNode(node: Node, vnode: VirtualNode): boolean {
   const changedProps: string[] = [];
   for (const key in node.props) {
-    if (node.props[key] == element.props[key]) {
+    if (node.props[key] == vnode.props[key]) {
       continue;
     }
 
     changedProps.push(key);
   }
 
-  for (const key in element.props) {
+  for (const key in vnode.props) {
     if (node.props[key]) {
       continue;
     }
@@ -29,26 +29,26 @@ function diffNode(node: Node, element: VirtualNode): boolean {
   return false;
 }
 
-function patchNode(root: IGameObject, node: Node, element: VirtualNode): Node {
-  if (node.__type != element.type) {
+function patchNode(root: IGameObject, node: Node, vnode: VirtualNode): Node {
+  if (node.__type != vnode.type) {
     node.instance.removeFromParent();
-    return createNode(root, element);
+    return createNode(root, vnode);
   }
 
-  if (diffNode(node, element) && node.instance.applyProps) {
-    node.instance.applyProps(element.props);
+  if (diffNode(node, vnode) && node.instance.applyProps) {
+    node.instance.applyProps(vnode.props);
   }
 
-  const children = element.children.map((newElement, idx) => {
+  const children = vnode.children.map((newVNode, idx) => {
     const childNode = node.children[idx];
     if (!childNode) {
-      return createNode(node.instance, newElement);
+      return createNode(node.instance, newVNode);
     }
-    return patchNode(node.instance, childNode, newElement);
+    return patchNode(node.instance, childNode, newVNode);
   });
 
-  if (node.children.length > element.children.length) {
-    let idx = node.children.length - element.children.length;
+  if (node.children.length > vnode.children.length) {
+    let idx = node.children.length - vnode.children.length;
     for (; idx < node.children.length; idx++) {
       node.children[idx].instance.removeFromParent();
     }
@@ -57,23 +57,23 @@ function patchNode(root: IGameObject, node: Node, element: VirtualNode): Node {
   return {
     ...node,
     children,
-    props: element.props,
+    props: vnode.props,
   };
 }
 
-function createNode(root: IGameObject, element: VirtualNode): Node {
-  const instance = new element.type();
-  const children = element.children.map((child) => createNode(instance, child));
+function createNode(root: IGameObject, vnode: VirtualNode): Node {
+  const instance = new vnode.type();
+  const children = vnode.children.map((child) => createNode(instance, child));
 
-  instance.applyProps?.(element.props);
+  instance.applyProps?.(vnode.props);
 
   root.addChild(instance);
 
   return {
     instance,
     children,
-    __type: element.type,
-    props: element.props,
+    __type: vnode.type,
+    props: vnode.props,
   };
 }
 
