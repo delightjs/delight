@@ -2,13 +2,14 @@ import { Texture } from 'pixi.js';
 import { Sprite } from './sprite';
 
 describe('Sprite', () => {
-  it('should set texture from props', () => {
-    const sprite = new Sprite({ texture: Promise.resolve(Texture.EMPTY) });
+  it('should set empty texture by default', () => {
+    const sprite = new Sprite();
     expect(sprite).toHaveProperty('texture', Texture.EMPTY);
   });
 
-  describe('when position is given', () => {
-    const sprite = new Sprite({
+  describe('#applyProps', () => {
+    const sprite = new Sprite();
+    sprite.applyProps({
       texture: Promise.resolve(Texture.EMPTY),
       x: 123,
       y: 456,

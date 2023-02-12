@@ -1,14 +1,13 @@
-import { IGameObject, Props } from './types';
-import { Element, Constructor } from './jsx-runtime';
+import { IGameObject, NormalGameNode, Props, VirtualNode } from './types';
 
 type Node = {
-  __type: Constructor;
+  __type: NormalGameNode;
   instance: IGameObject;
   children: Node[];
   props: Props;
 };
 
-function diffNode(node: Node, element: Element): boolean {
+function diffNode(node: Node, element: VirtualNode): boolean {
   const changedProps: string[] = [];
   for (const key in node.props) {
     if (node.props[key] == element.props[key]) {
@@ -30,7 +29,7 @@ function diffNode(node: Node, element: Element): boolean {
   return false;
 }
 
-function patchNode(root: IGameObject, node: Node, element: Element): Node {
+function patchNode(root: IGameObject, node: Node, element: VirtualNode): Node {
   if (node.__type != element.type) {
     node.instance.removeFromParent();
     return createNode(root, element);
@@ -62,9 +61,11 @@ function patchNode(root: IGameObject, node: Node, element: Element): Node {
   };
 }
 
-function createNode(root: IGameObject, element: Element): Node {
-  const instance = new element.type(element.props);
+function createNode(root: IGameObject, element: VirtualNode): Node {
+  const instance = new element.type();
   const children = element.children.map((child) => createNode(instance, child));
+
+  instance.applyProps?.(element.props);
 
   root.addChild(instance);
 

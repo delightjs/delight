@@ -2,7 +2,7 @@ import { Application } from 'pixi.js';
 import { extension, Extension, ExtensionConfigureFn } from '@delightjs/core';
 import {
   IGameObject,
-  createElement,
+  createVirtualNode,
   createContainer,
   updateContainer,
 } from '@delightjs/jsx-runtime';
@@ -22,14 +22,14 @@ export class StageExtension implements Extension {
     if (this.config.defaultScene) {
       const scene = this.config.getScene(this.config.defaultScene);
       if (scene) {
-        const element = createElement(scene, {});
+        const element = createVirtualNode(scene, {});
         let container = createContainer(this.app.stage as IGameObject, element);
         this.app.ticker.add(() => {
           if (this.app) {
             container = updateContainer(
               this.app.stage as IGameObject,
               container,
-              createElement(scene, {})
+              createVirtualNode(scene, {})
             );
           }
         });

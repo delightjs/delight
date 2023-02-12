@@ -1,33 +1,34 @@
-import { IGameObject, Props } from './types';
+import {
+  NormalGameNode,
+  HighOrderGameNode,
+  GameNode,
+  Props,
+  VirtualNode,
+  VirtualNodeConfig,
+} from './types';
 
-export type Constructor = new (props?: object) => IGameObject;
-export type Component = (config: Config) => Element;
-export type Factory = Constructor | Component;
+const isConstructor = (node: GameNode) =>
+  node.prototype && node.prototype.constructor.name;
 
-export type Config = {
-  children?: Element[];
-} & object;
-export type Element = {
-  type: Constructor;
-  props: Props;
-  children: Element[];
-};
+export function createVirtualNode(
+  type: GameNode,
+  config: VirtualNodeConfig
+): VirtualNode {
+  if (isConstructor(type)) {
+    const { children, ...props } = config;
 
-const isConstructor = (fn: Factory) =>
-  fn.prototype && fn.prototype.constructor.name;
-
-export function createElement(type: Factory, config: Config): Element {
-  if (!isConstructor(type)) {
-    return (type as Component)(config);
+    return {
+      type: type as NormalGameNode,
+      props: props as Props,
+      children: children || [],
+    };
   }
 
-  const { children, ...props } = config;
-
-  return {
-    type: type as Constructor,
-    props: props as Props,
-    children: children || [],
-  };
+  return (type as HighOrderGameNode)(config);
 }
 
-export { createElement as jsx, createElement as jsxs, createElement as jsxDEV };
+export {
+  createVirtualNode as jsx,
+  createVirtualNode as jsxs,
+  createVirtualNode as jsxDEV,
+};

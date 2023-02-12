@@ -7,10 +7,8 @@ export type SpriteProps = {
 };
 
 export class Sprite extends PIXI.Sprite {
-  constructor(props: SpriteProps) {
+  constructor() {
     super(PIXI.Texture.EMPTY);
-
-    this.applyProps(props);
   }
 
   applyProps(props: SpriteProps) {
