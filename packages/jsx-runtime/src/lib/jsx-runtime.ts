@@ -1,9 +1,8 @@
-import { Container } from 'pixi.js';
+import { IGameObject, Props } from './types';
 
-export type Constructor = new (props?: object) => Container;
+export type Constructor = new (props?: object) => IGameObject;
 export type Component = (config: Config) => Element;
 export type Factory = Constructor | Component;
-export type Props = { [key: string]: unknown };
 
 export type Config = {
   children?: Element[];

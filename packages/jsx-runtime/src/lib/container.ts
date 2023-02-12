@@ -1,10 +1,9 @@
-import { Container } from 'pixi.js';
-import { Element, Constructor, Props } from './jsx-runtime';
+import { IGameObject, Props } from './types';
+import { Element, Constructor } from './jsx-runtime';
 
-type PropApplicable = Container & { applyProps?: (props: Props) => void };
 type Node = {
   __type: Constructor;
-  instance: PropApplicable;
+  instance: IGameObject;
   children: Node[];
   props: Props;
 };
@@ -31,7 +30,7 @@ function diffNode(node: Node, element: Element): boolean {
   return false;
 }
 
-function patchNode(root: PropApplicable, node: Node, element: Element): Node {
+function patchNode(root: IGameObject, node: Node, element: Element): Node {
   if (node.__type != element.type) {
     node.instance.removeFromParent();
     return createNode(root, element);
@@ -63,7 +62,7 @@ function patchNode(root: PropApplicable, node: Node, element: Element): Node {
   };
 }
 
-function createNode(root: Container, element: Element): Node {
+function createNode(root: IGameObject, element: Element): Node {
   const instance = new element.type(element.props);
   const children = element.children.map((child) => createNode(instance, child));
 
