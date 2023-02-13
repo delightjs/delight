@@ -17,7 +17,7 @@
     "paths": {
       "@delightjs/core": ["packages/core/src/index.ts"],
       "@delightjs/jsx-runtime": ["packages/jsx-runtime/src/index.ts"],
-      "@delightjs/stage": ["packages/stage/src/index.ts"]
+      "@delightjs/pixi": ["packages/pixi/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

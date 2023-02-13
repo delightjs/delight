@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { createElement, Scene, Sprite } from '@delightjs/stage';
+import { createElement, Scene, Sprite } from '@delightjs/pixi';
 
 import { Texture } from 'pixi.js';
 

@@ -1,5 +1,5 @@
 import Delight from '@delightjs/core';
-import { Config as StageConfig } from '@delightjs/stage';
+import { Config as StageConfig } from '@delightjs/pixi';
 
 import { Entry } from './scenes/Entry';
 

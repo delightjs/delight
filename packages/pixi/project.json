@@ -1,17 +1,17 @@
 {
   "name": "stage",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/stage/src",
+  "sourceRoot": "packages/pixi/src",
   "projectType": "library",
   "targets": {
     "build": {
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/packages/stage",
-        "main": "packages/stage/src/index.ts",
-        "tsConfig": "packages/stage/tsconfig.lib.json",
-        "assets": ["packages/stage/*.md"]
+        "outputPath": "dist/packages/pixi",
+        "main": "packages/pixi/src/index.ts",
+        "tsConfig": "packages/pixi/tsconfig.lib.json",
+        "assets": ["packages/pixi/*.md"]
       }
     },
     "publish": {
@@ -25,15 +25,15 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/stage/**/*.ts"]
+        "lintFilePatterns": ["packages/pixi/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/vite:test",
-      "outputs": ["coverage/packages/stage"],
+      "outputs": ["coverage/packages/pixi"],
       "options": {
         "passWithNoTests": true,
-        "reportsDirectory": "../../coverage/packages/stage"
+        "reportsDirectory": "../../coverage/packages/pixi"
       }
     }
   },
