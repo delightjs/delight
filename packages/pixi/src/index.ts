@@ -1,4 +1,4 @@
-export * from './lib/stage';
+export * from './lib/pixi';
 export * from './lib/config';
 export * from './lib/scene';
 export * from './lib/sprite';

@@ -1,9 +1,9 @@
-import { StageExtension } from './stage';
+import { PIXIExtension } from './pixi';
 import { Config } from './config';
 
-describe('StageExtension', () => {
-  it('should be able to configure with StageConfig', () => {
-    const extension = new StageExtension();
+describe('PIXIExtension', () => {
+  it('should be able to configure with PIXIConfig', () => {
+    const extension = new PIXIExtension();
 
     extension.configure((config: Config) => {
       config.app = { backgroundColor: '000' };

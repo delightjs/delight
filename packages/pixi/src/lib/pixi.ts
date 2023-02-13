@@ -7,8 +7,8 @@ import {
 } from '@delightjs/jsx-runtime';
 import { Config } from './config';
 
-@extension('stage')
-export class StageExtension implements Extension {
+@extension('pixi')
+export class PIXIExtension implements Extension {
   public readonly config: Config = new Config();
   private app?: Application;
 
